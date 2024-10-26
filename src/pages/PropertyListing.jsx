@@ -1,44 +1,125 @@
-import { useEffect, useState } from 'react';
-import PropertyCard from '../components/PropertyCard';
-import Select from 'react-select';
+import { useEffect, useState, useCallback } from 'react';
 import customFetch from '../../utils/api';
+import PropertyCard from '../components/PropertyCard';
+import toast from 'react-hot-toast';
+import Navbar from '../components/Navbar';
 
 const PropertyListing = () => {
-  const [properties, setProperties] = useState([]);
+  const [allProperties, setAllProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
-  const [location, setLocation] = useState('');
+  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({ location: '', minPrice: '', maxPrice: '' });
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProperties = async () => {
+  const fetchAllProperties = useCallback(async () => {
+    setLoading(true);
+    try {
       const { data } = await customFetch.get('/api/properties');
-      setProperties(data);
+      setAllProperties(data);
       setFilteredProperties(data);
-      console.log(data);
-
-    };
-    fetchProperties();
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+      toast.error('Failed to load properties.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const handleLocationChange = selected => {
-    setLocation(selected.value);
-    const filtered = properties.filter(p => p.location === selected.value);
-    setFilteredProperties(filtered);
+  useEffect(() => {
+    fetchAllProperties();
+  }, [fetchAllProperties]);
+
+  useEffect(() => {
+    const applyFilters = () => {
+      const { location, minPrice, maxPrice } = filters;
+
+      const filtered = allProperties.filter((property) => {
+        const matchesLocation = location
+          ? property.location.toLowerCase().includes(location.toLowerCase())
+          : true;
+        const matchesName = search
+          ? property.name.toLowerCase().includes(search.toLowerCase())
+          : true;
+        const matchesMinPrice = minPrice ? property.price >= Number(minPrice) : true;
+        const matchesMaxPrice = maxPrice ? property.price <= Number(maxPrice) : true;
+
+        return matchesLocation && matchesName && matchesMinPrice && matchesMaxPrice;
+      });
+
+      setFilteredProperties(filtered);
+    };
+
+    applyFilters();
+  }, [filters, search, allProperties]);
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
   };
 
-  return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Available Properties</h1>
-      <Select
-        options={properties.map(p => ({ label: p.location, value: p.location }))}
-        onChange={handleLocationChange}
-        placeholder="Filter by Location"
-      />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        {filteredProperties.map(property => (
-          <PropertyCard key={property._id} property={property} />
-        ))}
+  const handleSearchChange = (e) => setSearch(e.target.value);
+
+  const handleReset = () => {
+    setFilters({ location: '', minPrice: '', maxPrice: '' });
+    setSearch('');
+  };
+
+  if (loading) {
+    return (
+      <div className="spinner-container">
+        <div className="loading"></div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <Navbar />
+      <div className="property-listing">
+        <div className="filters-container">
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={filters.location}
+            onChange={handleFilterChange}
+            className="filter-input"
+          />
+          <input
+            type="number"
+            name="minPrice"
+            placeholder="Min Price"
+            value={filters.minPrice}
+            onChange={handleFilterChange}
+            className="filter-input"
+          />
+          <input
+            type="number"
+            name="maxPrice"
+            placeholder="Max Price"
+            value={filters.maxPrice}
+            onChange={handleFilterChange}
+            className="filter-input"
+          />
+          <input
+            type="text"
+            placeholder="Search properties"
+            value={search}
+            onChange={handleSearchChange}
+            className="filter-input"
+          />
+          <button onClick={handleReset} className="reset-button">
+            Reset
+          </button>
+        </div>
+
+        <div className="property-grid">
+          {filteredProperties.map((property) => (
+            <PropertyCard key={property._id} property={property} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

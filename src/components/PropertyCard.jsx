@@ -1,15 +1,25 @@
-const PropertyCard = ({property}) => (
-  <div className="border p-4 rounded shadow-md">
-    <img
-      src={property.image}
-      alt={property.name}
-      className="w-full h-48 object-cover rounded"
-    />
-    <h3 className="text-xl font-semibold mt-2">{property.name}</h3>
-    <p>Location: {property.location}</p>
-    <p>Price: ${property.price}</p>
-    <p>Amenities: {property.amenities.join (', ')}</p>
-  </div>
-);
+import { useNavigate } from 'react-router-dom';
+
+const PropertyCard = ({ property }) => {
+  const navigate = useNavigate();
+
+  const goToDetails = () => {
+    navigate(`/${property._id}`);
+  };
+
+  return (
+    <article className="property-card-listing">
+      <img src={property.image} alt={property.name} className="property-img" />
+      <div className="property-footer">
+        <h4 className="property-name">{property.name}</h4>
+        <p className="property-location">{property.location}</p>
+        <p className="property-price">{property.price} USD</p>
+        <button className="property-btn" onClick={goToDetails}>
+          View Details
+        </button>
+      </div>
+    </article>
+  );
+};
 
 export default PropertyCard;

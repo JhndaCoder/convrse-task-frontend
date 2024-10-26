@@ -1,90 +1,1094 @@
+/* ============= GLOBAL CSS =============== */
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+/*16px*/
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* colors */
+  --primary-100: #d1fae5;
+  --primary-200: #a7f3d0;
+  --primary-300: #6ee7b7;
+  --primary-400: #34d399;
+  --primary-500: #10b981;
+  --primary-600: #059669;
+  --primary-700: #047857;
+  --primary-800: #065f46;
+  --primary-900: #064e3b;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* grey */
+  --grey-50: #f8fafc;
+  --grey-100: #f1f5f9;
+  --grey-200: #e2e8f0;
+  --grey-300: #cbd5e1;
+  --grey-400: #94a3b8;
+  --grey-500: #64748b;
+  --grey-600: #475569;
+  --grey-700: #334155;
+  --grey-800: #1e293b;
+  --grey-900: #0f172a;
+  /* rest of the colors */
+  --black: #222;
+  --white: #fff;
+  --red-light: #f8d7da;
+  --red-dark: #842029;
+  --green-light: #d1e7dd;
+  --green-dark: #0f5132;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
+  --small-text: 0.875rem;
+  --extra-small-text: 0.7em;
+  /* rest of the vars */
+  --backgroundColor: var(--grey-50);
+  --textColor: var(--grey-900);
+  --borderRadius: 0.25rem;
+  --letterSpacing: 1px;
+  --transition: 0.3s ease-in-out all;
+  --max-width: 1120px;
+  --fixed-width: 600px;
+  --view-width: 90vw;
+  /* box shadow*/
+  --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 body {
+  background: var(--backgroundColor);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--textColor);
+}
+
+p {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  font-family: var(--headingFont);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: capitalize;
+  letter-spacing: var(--letterSpacing);
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 5rem);
+  /* Large heading */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+h2 {
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  /* Medium heading */
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.5vw, 2.5rem);
+  /* Small heading */
+}
+
+h4 {
+  font-size: clamp(1rem, 2vw, 2rem);
+  /* Extra small heading */
+}
+
+h5 {
+  font-size: clamp(0.875rem, 1.5vw, 1.5rem);
+  /* Tiny heading */
+}
+
+/* BIGGER FONTS */
+/* h1 {
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+h2 {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+}
+
+h3 {
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+
+h4 {
+  font-size: clamp(1.5rem, 3vw, 3rem);
+}
+
+h5 {
+  font-size: clamp(1rem, 2vw, 2rem);
+}
+ */
+
+.text {
+  margin-bottom: 1.5rem;
+  max-width: 40em;
+}
+
+small,
+.text-small {
+  font-size: var(--small-text);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* buttons */
+
+.btn {
   cursor: pointer;
-  transition: border-color 0.25s;
+  color: var(--white);
+  background: var(--primary-500);
+  border: transparent;
+  border-radius: var(--borderRadius);
+  letter-spacing: var(--letterSpacing);
+  padding: 0.375rem 0.75rem;
+  box-shadow: var(--shadow-1);
+  transition: var(--transition);
+  text-transform: capitalize;
+  display: inline-block;
 }
 
-button:hover {
-  border-color: #646cff;
+.btn:hover {
+  background: var(--primary-700);
+  box-shadow: var(--shadow-3);
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.btn-hipster {
+  color: var(--primary-500);
+  background: var(--primary-200);
+}
+
+.btn-hipster:hover {
+  color: var(--primary-200);
+  background: var(--primary-700);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* alerts */
+.alert {
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 1rem;
+  border-color: transparent;
+  border-radius: var(--borderRadius);
+}
+
+.alert-danger {
+  color: var(--red-dark);
+  background: var(--red-light);
+}
+
+.alert-success {
+  color: var(--green-dark);
+  background: var(--green-light);
+}
+
+/* form */
+
+.form {
+  width: 100%;
+  max-width: var(--fixed-width);
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  padding: 2rem 2.5rem;
+  margin: 3rem auto;
+}
+
+.form-label {
+  display: block;
+  font-size: var(--small-text);
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+  letter-spacing: var(--letterSpacing);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--borderRadius);
+  background: var(--backgroundColor);
+  border: 1px solid var(--grey-200);
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form-textarea {
+  height: 7rem;
+}
+
+::placeholder {
+  font-family: inherit;
+  color: var(--grey-400);
+}
+
+.form-alert {
+  color: var(--red-dark);
+  letter-spacing: var(--letterSpacing);
+  text-transform: capitalize;
+}
+
+/* title */
+
+.title {
+  text-align: center;
+}
+
+.title-underline {
+  background: var(--primary-500);
+  width: 4rem;
+  height: 0.25rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+/* Spinner styles */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.loading {
+  width: 6rem;
+  height: 6rem;
+  border: 5px solid var(--grey-400);
+  border-top-color: var(--primary-500);
+  border-radius: 50%;
+  animation: spinner 0.6s linear infinite;
+}
+
+.loading.small {
+  width: 2rem;
+  height: 2rem;
+  border-width: 3px;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* 
+============= 
+PROJECT CSS
+=============
+*/
+.page {
+  width: var(--view-width);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+
+.test {
+  position: relative;
+  /* width: 33vw;
+  height: 200px; */
+  background-color: black;
+}
+
+.test canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.test>div:nth-of-type(3) {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  z-index: 10;
+  float: none !important;
+  transform: none !important;
+  width: auto !important;
+  padding: 2.5px 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.test span[style*="background-image"] {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+/* Scoped CSS for PropertyCard component */
+.property-card-listing {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  transition: var(--transition);
+}
+
+.property-card-listing:hover {
+  box-shadow: var(--shadow-4);
+}
+
+.property-card-listing .property-img {
+  height: 15rem;
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: var(--borderRadius);
+  border-top-right-radius: var(--borderRadius);
+}
+
+.property-card-listing .property-footer {
+  padding: 1rem;
+}
+
+.property-card-listing .property-name {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.property-card-listing .property-price {
+  margin-bottom: 1rem;
+  color: var(--grey-500);
+  text-align: left;
+}
+
+.property-card-listing .property-location {
+  color: var(--grey-500);
+  text-align: left;
+}
+
+.property-card-listing .property-btn {
+  background-color: var(--primary-500);
+  color: white;
+  border: none;
+  border-radius: var(--borderRadius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.property-card-listing .property-btn:hover {
+  background-color: var(--primary-700);
+}
+
+
+.property-listing {
+  padding: 2rem;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.filter-input {
+  flex: 1 1 200px;
+  padding: 0.75rem;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--borderRadius);
+  min-width: 150px;
+}
+
+.reset-button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-500);
+  color: white;
+  border: none;
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.reset-button:hover {
+  background-color: var(--primary-700);
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.property-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.5rem;
+  min-height: 100vh;
+  background-color: var(--grey-50);
+  padding-bottom: 5rem;
+}
+
+.property-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.property-location,
+.property-price,
+.property-amenities {
+  margin-bottom: 0.75rem;
+  color: var(--grey-700);
+  text-align: center;
 }
 
 .vr-container {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  background-color: black;
-  /* Helps check if the div is rendered */
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
   overflow: hidden;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
 }
 
-
 .vr-container canvas {
+  width: 100%;
+  height: auto;
   display: block;
 }
 
+.booking-input {
+  padding: 0.75rem;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--borderRadius);
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 400px;
+}
 
+.booking-button,
+.payment-button {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  background-color: var(--primary-500);
+  color: white;
+  border: none;
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-weight: bold;
+}
 
+.booking-button:hover,
+.payment-button:hover {
+  background-color: var(--primary-700);
+}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.payment-button {
+  background-color: var(--secondary-500);
+}
+
+.payment-button:hover {
+  background-color: var(--secondary-700);
+}
+
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.filter-input {
+  flex: 1 1 200px;
+  padding: 0.75rem;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--borderRadius);
+}
+
+.property-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.property-form input {
+  padding: 0.75rem;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--borderRadius);
+}
+
+.submit-button,
+.cancel-button {
+  padding: 1rem;
+  border: none;
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.submit-button {
+  background-color: var(--primary-500);
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: var(--primary-700);
+}
+
+.cancel-button {
+  background-color: var(--grey-300);
+}
+
+.cancel-button:hover {
+  background-color: var(--grey-500);
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Scoped CSS for AdminDashboard */
+.admin-property-card {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: var(--transition);
+}
+
+.admin-property-card:hover {
+  box-shadow: var(--shadow-4);
+}
+
+.admin-property-card .property-name {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.admin-property-card .property-price {
+  margin-bottom: 1rem;
+  color: var(--grey-500);
+}
+
+.admin-property-card img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--borderRadius);
+}
+
+.admin-property-card .update-button,
+.admin-property-card .delete-button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-property-card .update-button {
+  background-color: var(--primary-500);
+  color: white;
+}
+
+.admin-property-card .update-button:hover {
+  background-color: var(--primary-700);
+}
+
+.admin-property-card .delete-button {
+  background-color: var(--red-light);
+  color: var(--red-dark);
+}
+
+.admin-property-card .delete-button:hover {
+  background-color: var(--red-dark);
+  color: white;
+}
+
+.property-grid .test {
+  overflow: hidden;
+  width: 100% !important;
+}
+
+/* Login and Register Page Styles */
+.login-page,
+.register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--grey-50);
+  padding: 2rem;
+}
+
+.login-title,
+.register-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--textColor);
+}
+
+.login-form,
+.register-form {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-button,
+.register-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-500);
+  color: white;
+  border: none;
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.login-button:hover,
+.register-button:hover {
+  background-color: var(--primary-700);
+}
+
+.login-register-link {
+  margin-top: 1rem;
+  font-size: var(--small-text);
+  color: var(--grey-600);
+  text-align: center;
+}
+
+.login-register-link a {
+  color: var(--primary-500);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-register-link a:hover {
+  color: var(--primary-700);
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: var(--small-text);
+  text-transform: capitalize;
+  color: var(--grey-800);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--borderRadius);
+  background-color: var(--backgroundColor);
+}
+
+.login-register-link {
+  margin-top: 1rem;
+  font-size: var(--small-text);
+  color: var(--grey-600);
+}
+
+.login-register-link a {
+  color: var(--primary-500);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-register-link a:hover {
+  color: var(--primary-700);
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: var(--small-text);
+  text-transform: capitalize;
+  color: var(--grey-800);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--borderRadius);
+  background-color: var(--backgroundColor);
+}
+
+/* Updated titles for sections */
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  color: var(--textColor);
+}
+
+/* Buttons alignment for forms */
+.property-form button {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.property-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  /* Ensure the form takes full viewport height */
+  background-color: var(--grey-50);
+  /* Optional: Background color to match design */
+}
+
+/* Align form sections centrally */
+.property-form {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+}
+
+/* Make filters more compact and responsive */
+.filters-container {
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+/* Improved input fields styling */
+.filter-input,
+.form-input {
+  padding: 0.75rem;
+  font-size: var(--small-text);
+  background-color: var(--backgroundColor);
+  border-radius: var(--borderRadius);
+  border: 1px solid var(--grey-300);
+  transition: var(--transition);
+}
+
+.filter-input:focus,
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-1);
+}
+
+/* Buttons with better alignment */
+.submit-button,
+.cancel-button {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.cancel-button {
+  background-color: var(--grey-400);
+  color: var(--white);
+}
+
+.cancel-button:hover {
+  background-color: var(--grey-600);
+}
+
+/* Cards styling */
+.admin-property-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  transition: var(--transition);
+}
+
+.admin-property-card img {
+  border-radius: var(--borderRadius);
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+}
+
+/* Buttons inside property cards */
+.admin-property-card button {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+/* Grid adjustments for mobile */
+.property-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Improved responsive layout for login/register pages */
+.login-page,
+.register-page {
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.login-form,
+.register-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-title,
+.register-title {
+  margin-bottom: 1rem;
+}
+
+/* Add subtle hover effect on links */
+.login-register-link a:hover {
+  text-decoration: underline;
+  color: var(--primary-600);
+}
+
+.payment-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-element-container {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.payment-button {
+  padding: 12px;
+  background-color: #6772e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.payment-button:hover {
+  background-color: #5469d4;
+}
+
+.navbar {
+  background: var(--white);
+}
+
+.nav-center {
+  width: var(--view-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+}
+
+.logo {
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  color: var(--primary-500);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.nav-link {
+  color: var(--grey-900);
+  padding: 0.5rem;
+  letter-spacing: 2px;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-500);
+}
+
+.green-button {
+  background: var(--primary-500);
+  color: var(--white);
+  border: none;
+  border-radius: var(--borderRadius);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: var(--letterSpacing);
+  text-transform: capitalize;
+}
+
+.green-button:hover {
+  background: var(--primary-700);
+}
+
+@media (min-width: 768px) {
+  .nav-center {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  a:hover {
-    color: #747bff;
+  .nav-links {
+    flex-direction: row;
+    margin-top: 0;
   }
+}
 
-  button {
-    background-color: #f9f9f9;
-  }
+.page {
+  width: var(--view-width);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: var(--textColor);
+}
+
+.bookings-list {
+  list-style: none;
+  padding: 0;
+}
+
+.booking-item {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.booking-item:hover {
+  box-shadow: var(--shadow-4);
+}
+
+.property-name {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.view-property-button {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: var(--primary-500);
+  color: white;
+  border: none;
+  border-radius: var(--borderRadius);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.view-property-button:hover {
+  background-color: var(--primary-700);
 }
