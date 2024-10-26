@@ -5,7 +5,7 @@ import PropertyListing from './pages/PropertyListing';
 import PropertyDetails from './pages/PropertyDetails';
 import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import MyBookings from './pages/Mybookings';
+import MyBookings from './pages/MyBookings';
 import EditBookings from './pages/EditBookings';
 
 function App() {
