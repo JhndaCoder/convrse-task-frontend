@@ -2,12 +2,17 @@
   "name": "convrse-front",
   "private": true,
   "version": "0.0.0",
+  "description": "Frontend for the Convrse real estate platform, featuring property listing and booking with Stripe integration.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start:prod": "vite preview --port 4173",
+    "test": "echo \"No tests implemented yet\" && exit 0",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "prettify": "prettier --write \"**/*.{js,jsx,json,md,css,html}\" --ignore-path .prettierignore",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@shadcn/ui": "^0.0.4",
@@ -28,10 +33,35 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.13",
     "globals": "^15.11.0",
+    "husky": "^8.0.0",
+    "prettier": "^3.0.0",
     "vite": "^5.4.9"
-  }
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run prettify"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/convrse-front.git"
+  },
+  "keywords": [
+    "real-estate",
+    "frontend",
+    "react",
+    "vite",
+    "stripe"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT"
 }

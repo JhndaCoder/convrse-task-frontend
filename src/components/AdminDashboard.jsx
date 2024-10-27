@@ -1,34 +1,38 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
-import customFetch from '../../utils/api';
-import VRView from './VRView';
-import toast from 'react-hot-toast';
-import Navbar from '../components/Navbar';
+import { useEffect, useState, useCallback, useRef } from "react";
+import customFetch from "../../utils/api";
+import VRView from "./VRView";
+import toast from "react-hot-toast";
+import Navbar from "../components/Navbar";
 
 const AdminDashboard = () => {
   const [allProperties, setAllProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [formData, setFormData] = useState(initialFormState());
   const [editingProperty, setEditingProperty] = useState(null);
-  const [filters, setFilters] = useState({ location: '', minPrice: '', maxPrice: '' });
-  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({
+    location: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+  const [search, setSearch] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isFirstLoad = useRef(true);
 
   const fetchAllProperties = useCallback(async () => {
     try {
-      const { data } = await customFetch.get('/api/properties');
+      const { data } = await customFetch.get("/api/properties");
       setAllProperties(data);
       setFilteredProperties(data);
     } catch (error) {
-      console.error('Error fetching properties:', error);
-      toast.error('Failed to load properties.');
+      console.error("Error fetching properties:", error);
+      toast.error("Failed to load properties.");
     }
   }, []);
 
   useEffect(() => {
     fetchAllProperties();
     if (isFirstLoad.current) {
-      toast.success('Properties loaded successfully!');
+      toast.success("Properties loaded successfully!");
       isFirstLoad.current = false;
     }
   }, [fetchAllProperties]);
@@ -47,10 +51,16 @@ const AdminDashboard = () => {
       const matchesName = search
         ? property.name.toLowerCase().includes(search.toLowerCase())
         : true;
-      const matchesMinPrice = minPrice ? property.price >= Number(minPrice) : true;
-      const matchesMaxPrice = maxPrice ? property.price <= Number(maxPrice) : true;
+      const matchesMinPrice = minPrice
+        ? property.price >= Number(minPrice)
+        : true;
+      const matchesMaxPrice = maxPrice
+        ? property.price <= Number(maxPrice)
+        : true;
 
-      return matchesLocation && matchesName && matchesMinPrice && matchesMaxPrice;
+      return (
+        matchesLocation && matchesName && matchesMinPrice && matchesMaxPrice
+      );
     });
 
     setFilteredProperties(filtered);
@@ -75,21 +85,21 @@ const AdminDashboard = () => {
       if (editingProperty) {
         await customFetch.put(`/api/properties/${editingProperty._id}`, {
           ...formData,
-          amenities: formData.amenities.split(', '),
+          amenities: formData.amenities.split(", "),
         });
-        toast.success('Property updated successfully!');
+        toast.success("Property updated successfully!");
       } else {
-        await customFetch.post('/api/properties', {
+        await customFetch.post("/api/properties", {
           ...formData,
-          amenities: formData.amenities.split(', '),
+          amenities: formData.amenities.split(", "),
         });
-        toast.success('Property added successfully!');
+        toast.success("Property added successfully!");
       }
       await fetchAllProperties();
       resetForm();
     } catch (error) {
-      console.error('Error submitting form:', error);
-      toast.error('Failed to submit property.');
+      console.error("Error submitting form:", error);
+      toast.error("Failed to submit property.");
     } finally {
       setIsSubmitting(false);
     }
@@ -101,22 +111,26 @@ const AdminDashboard = () => {
       name: property.name,
       price: property.price,
       location: property.location,
-      amenities: property.amenities.join(', '),
-      image: property.image || 'https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      vrImage: property.vrImage || 'https://pchen66.github.io/Panolens/examples/asset/textures/equirectangular/tunnel.jpg',
+      amenities: property.amenities.join(", "),
+      image:
+        property.image ||
+        "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      vrImage:
+        property.vrImage ||
+        "https://pchen66.github.io/Panolens/examples/asset/textures/equirectangular/tunnel.jpg",
     });
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDeleteProperty = async (id) => {
     try {
       await customFetch.delete(`/api/properties/${id}`);
       await fetchAllProperties();
-      toast.success('Property deleted successfully!');
+      toast.success("Property deleted successfully!");
     } catch (error) {
-      console.error('Error deleting property:', error);
-      toast.error('Failed to delete property.');
+      console.error("Error deleting property:", error);
+      toast.error("Failed to delete property.");
     }
   };
 
@@ -126,8 +140,8 @@ const AdminDashboard = () => {
   };
 
   const handleResetFilters = () => {
-    setFilters({ location: '', minPrice: '', maxPrice: '' });
-    setSearch('');
+    setFilters({ location: "", minPrice: "", maxPrice: "" });
+    setSearch("");
   };
 
   return (
@@ -175,7 +189,7 @@ const AdminDashboard = () => {
         </div>
 
         <h2 className="section-title">
-          {editingProperty ? 'Update Property' : 'Add Property'}
+          {editingProperty ? "Update Property" : "Add Property"}
         </h2>
         <div className="property-form-container">
           <form onSubmit={handleFormSubmit} className="property-form">
@@ -224,8 +238,12 @@ const AdminDashboard = () => {
               value={formData.vrImage}
               onChange={handleInputChange}
             />
-            <button type="submit" disabled={isSubmitting} className="submit-button">
-              {editingProperty ? 'Update Property' : 'Add Property'}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="submit-button"
+            >
+              {editingProperty ? "Update Property" : "Add Property"}
             </button>
             {editingProperty && (
               <button onClick={resetForm} className="cancel-button">
@@ -243,16 +261,26 @@ const AdminDashboard = () => {
               <p className="property-location">Location: {property.location}</p>
               <p className="property-price">Price: ${property.price}</p>
               <p className="property-amenities">
-                Amenities: {property.amenities.join(', ')}
+                Amenities: {property.amenities.join(", ")}
               </p>
               {property.image && (
-                <img src={property.image} alt={property.name} className="property-image" />
+                <img
+                  src={property.image}
+                  alt={property.name}
+                  className="property-image"
+                />
               )}
               {property.vrImage && <VRView panoramaImage={property.vrImage} />}
-              <button onClick={() => startEditing(property)} className="update-button">
+              <button
+                onClick={() => startEditing(property)}
+                className="update-button"
+              >
                 Update
               </button>
-              <button onClick={() => handleDeleteProperty(property._id)} className="delete-button">
+              <button
+                onClick={() => handleDeleteProperty(property._id)}
+                className="delete-button"
+              >
                 Delete
               </button>
             </div>
@@ -264,12 +292,12 @@ const AdminDashboard = () => {
 };
 
 const initialFormState = () => ({
-  name: '',
-  price: '',
-  location: '',
-  amenities: '',
-  image: '',
-  vrImage: '',
+  name: "",
+  price: "",
+  location: "",
+  amenities: "",
+  image: "",
+  vrImage: "",
 });
 
 export default AdminDashboard;

@@ -1,12 +1,12 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Navigate, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const ProtectedRoute = ({ allowedRoles = [] }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role');
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   useEffect(() => {
     if (token && allowedRoles.includes(role)) {
@@ -22,7 +22,11 @@ const ProtectedRoute = ({ allowedRoles = [] }) => {
   if (isLoading) return <div>Loading...</div>;
 
   if (!isAuthorized) {
-    return token ? <Navigate to="/" replace /> : <Navigate to="/login" replace />;
+    return token ? (
+      <Navigate to="/" replace />
+    ) : (
+      <Navigate to="/login" replace />
+    );
   }
 
   return <Outlet />;

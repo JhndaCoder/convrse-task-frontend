@@ -1,25 +1,29 @@
-import { useEffect, useState, useCallback } from 'react';
-import customFetch from '../../utils/api';
-import PropertyCard from '../components/PropertyCard';
-import toast from 'react-hot-toast';
-import Navbar from '../components/Navbar';
+import { useEffect, useState, useCallback } from "react";
+import customFetch from "../../utils/api";
+import PropertyCard from "../components/PropertyCard";
+import toast from "react-hot-toast";
+import Navbar from "../components/Navbar";
 
 const PropertyListing = () => {
   const [allProperties, setAllProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
-  const [search, setSearch] = useState('');
-  const [filters, setFilters] = useState({ location: '', minPrice: '', maxPrice: '' });
+  const [search, setSearch] = useState("");
+  const [filters, setFilters] = useState({
+    location: "",
+    minPrice: "",
+    maxPrice: "",
+  });
   const [loading, setLoading] = useState(true);
 
   const fetchAllProperties = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await customFetch.get('/api/properties');
+      const { data } = await customFetch.get("/api/properties");
       setAllProperties(data);
       setFilteredProperties(data);
     } catch (error) {
-      console.error('Error fetching properties:', error);
-      toast.error('Failed to load properties.');
+      console.error("Error fetching properties:", error);
+      toast.error("Failed to load properties.");
     } finally {
       setLoading(false);
     }
@@ -40,10 +44,16 @@ const PropertyListing = () => {
         const matchesName = search
           ? property.name.toLowerCase().includes(search.toLowerCase())
           : true;
-        const matchesMinPrice = minPrice ? property.price >= Number(minPrice) : true;
-        const matchesMaxPrice = maxPrice ? property.price <= Number(maxPrice) : true;
+        const matchesMinPrice = minPrice
+          ? property.price >= Number(minPrice)
+          : true;
+        const matchesMaxPrice = maxPrice
+          ? property.price <= Number(maxPrice)
+          : true;
 
-        return matchesLocation && matchesName && matchesMinPrice && matchesMaxPrice;
+        return (
+          matchesLocation && matchesName && matchesMinPrice && matchesMaxPrice
+        );
       });
 
       setFilteredProperties(filtered);
@@ -60,8 +70,8 @@ const PropertyListing = () => {
   const handleSearchChange = (e) => setSearch(e.target.value);
 
   const handleReset = () => {
-    setFilters({ location: '', minPrice: '', maxPrice: '' });
-    setSearch('');
+    setFilters({ location: "", minPrice: "", maxPrice: "" });
+    setSearch("");
   };
 
   if (loading) {
